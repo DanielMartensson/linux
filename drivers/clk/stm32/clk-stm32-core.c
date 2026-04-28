@@ -48,12 +48,15 @@ static int stm32_rcc_clock_init(struct device *dev,
 		hws[n] = ERR_PTR(-ENOENT);
 
 	for (n = 0; n < data->num_clocks; n++) {
+  dev_info(dev, "Looping clk = %d", n);
 		const struct clock_config *cfg_clock = &data->tab_clocks[n];
 		struct clk_hw *hw = ERR_PTR(-ENOENT);
 
 		if (data->check_security &&
-		    data->check_security(dev->of_node, base, cfg_clock))
+		    data->check_security(dev->of_node, base, cfg_clock)){
+   dev_info(dev, "Security ON at clk = %d. continue the for-loop", n);
 			continue;
+}
 
 		if (cfg_clock->func)
 			hw = (*cfg_clock->func)(dev, data, base, &rlock,
