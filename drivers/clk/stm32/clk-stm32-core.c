@@ -46,7 +46,8 @@ static int stm32_rcc_clock_init(struct device *dev,
 
 	for (n = 0; n < max_binding; n++)
 		hws[n] = ERR_PTR(-ENOENT);
-
+ 
+ dev_info(dev, "Beging looping clocks. total clocks are = %d", data->num_clocks);
 	for (n = 0; n < data->num_clocks; n++) {
   dev_info(dev, "Looping clk = %d", n);
 		const struct clock_config *cfg_clock = &data->tab_clocks[n];
